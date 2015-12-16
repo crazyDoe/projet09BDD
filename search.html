@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>Search</title>
+  </head>
+  <body>
+    <h2> Recherche nom </h2>
+    <form>
+      Nom : <input type="text" id="nom"><BR>
+      <textarea id="titre"></textarea>
+      <p><a href="index.html">Home </a></p
+    </form>
+  </body>
+  <script>
+  $(function() {
+     $('#nom').keyup(function() {
+        $.ajax({
+           type: "GET",
+           url: "search.jsp?name="+$("#nom").val(),
+           success: function(details)
+           {
+              $('#titre').text(details);
+           }
+        });
+     });
+  });
+  </script>
+</html>

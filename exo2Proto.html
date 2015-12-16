@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <TITLE>Exercice 2</TITLE>
+   <script src="js/prototype.js"></script>
+   	<script>
+    	function reload(nom) {
+    		new Ajax.Updater(
+					'textArea',
+					("search.jsp?name="+nom),
+					{
+						method: 'get',
+					}
+				);
+    	}
+	</script>
+</head>
+<body>
+	<h2> Recherche nom </h2>
+	<input type="text" id="nom" onKeyUp="reload(nom.value);"/></br>
+	<textarea id="textArea"></textarea>
+  <p><a href="index.html"> Home </a>
+</body>
+</html>

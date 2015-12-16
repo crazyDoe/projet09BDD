@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+   <TITLE>Exercice 1</TITLE>
+   <script type="text/javascript" src="js/prototype.js"></script>
+   <script>
+   Event.observe(window, 'load', function() {
+	   new Ajax.PeriodicalUpdater('textArea', 'count.jsp', {
+		  method: 'get',
+		  frequency: 1,
+		  decay: 5
+		});
+	});
+   </script>
+</head>
+<body>
+	<h2>Nombre d'entrées dans la table Personne</h2>
+	<textarea rows="4" cols="50" id="textArea"></textarea>
+	<p/><a href="index.html">Home </a>
+</body>
+</html>

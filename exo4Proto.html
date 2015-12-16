@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <%@ page contentType="text/html; charset=UTF-8" %>
+   <TITLE>Prototype - Exercice 4</TITLE>
+   <script src="js/prototype.js"></script>
+   <script>
+		function SubmitRequest()
+		{
+		  new Ajax.Request("../servlet/exo4Proto", {
+		  method: 'get',
+		  ContentType : 'text/xml',
+		  onSuccess: successFunc,
+		  onFailure:  failureFunc
+		  });
+
+		}
+		function successFunc(response){
+		    if (200 == response.status){
+			    document.getElementById("textFieldVieux").value = "";
+				document.getElementById("textFieldJeunes").value = "";
+				var data = req.responseXML;
+				var racine = data.documentElement;
+				var personneJeune = racine.getElementsByTagName("personneJeunes"); // tableau qui contient toute les personnes jeunes
+				var personneVieu = racine.getElementsByTagName("personneVieux"); // tableau qui contient toute les personnes vieux
+				for(i=0;i<personneJeune.length;i++)
+				{
+					console.log(personneJeune[i].getElementsByTagName("nom")[0].firstChild);
+				   	var nom = personneJeune[i].getElementsByTagName("nom")[0].firstChild;
+				   	var prenom = personneJeune[i].getElementsByTagName("prenom")[0].firstChild;
+				   	var datenaiss = personneJeune[i].getElementsByTagName("datenaiss")[0].firstChild;
+					document.getElementById("textFieldJeunes").value += nom.nodeValue + " - " + prenom.nodeValue + " - " + datenaiss.nodeValue +"\n";
+				}
+				for(i=0;i<personneVieu.length;i++)
+				{
+				   	var nom = personneVieu[i].getElementsByTagName("nom")[0].firstChild;
+				   	var prenom = personneVieu[i].getElementsByTagName("prenom")[0].firstChild;
+				   	var datenaiss = personneVieu[i].getElementsByTagName("datenaiss")[0].firstChild;
+					document.getElementById("textFieldVieux").value += nom.nodeValue + " - " + prenom.nodeValue + " - " + datenaiss.nodeValue +"\n";
+				}
+			}
+
+		}
+		function failureFunc(response){
+		     alert("Call is failed" );
+
+		}
+		setInterval(SubmitRequest,500);
+	</script>
+</head>
+<body>
+	<h1>Test avec Prototype - Exercice 4</h1>
+
+	Les Jeunes : <br/>
+	<textarea rows="4" cols="50" id="textFieldJeunes"></textarea><br/>
+	Les Vieux : <br/>
+	<textarea rows="4" cols="50" id="textFieldVieux"></textarea><br/>
+	<input type="button" id="refresh" value="Refresh" onclick="SubmitRequest();"/>
+	<p/><a href="../prototype.jsp">Retour menu Prototype</a>
+	<p/><a href="../index.html">Retour menu</a>
+</body>
+</html>

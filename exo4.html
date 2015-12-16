@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>Exo 4</title>
+  </head>
+  <body>
+    Les 3 jeunes<BR>
+    <textarea id="young"></textarea><BR>
+    Les 3 vieux<BR>
+    <textarea id="old"></textarea>
+    <p><a href="index.html">Home </a></p>
+  </body>
+  <script>
+  $(document).ready(setInterval(function(){
+    $.get("old.jsp",function success(data){
+      $('#old').text(data);
+    });
+    $.get("young.jsp",function success(data){
+      $('#young').text(data);
+    });
+  },500));
+  </script>
+</html>

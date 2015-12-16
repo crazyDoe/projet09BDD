@@ -1,0 +1,56 @@
+<!-- Ex03.jsp -->
+<!DOCTYPE html>
+<html>
+<head>
+   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <TITLE>Recherche par ID </TITLE>
+   <script src="js/prototype.js"></script>
+   	<script>
+		function SubmitRequest(text)
+		{
+		  new Ajax.Request("servlet/exercice3?id="+text, {
+		  method: 'get',
+		  onSuccess: successFunc,
+		  });
+
+		}
+		function successFunc(response){
+
+		     if (200 == response.status){
+			    var data = response.responseXML;
+			    if(data!=null){
+					var id = data.getElementsByTagName("id")[0].firstChild;
+					var login = data.getElementsByTagName("login")[0].firstChild;
+					var nom = data.getElementsByTagName("nom")[0].firstChild;
+					var prenom = data.getElementsByTagName("prenom")[0].firstChild;
+					var datenaiss = data.getElementsByTagName("datenaiss")[0].firstChild;
+					document.getElementById("textFieldId").value = id.nodeValue;
+					document.getElementById("textFieldLogin").value = login.nodeValue;
+					document.getElementById("textFieldNom").value = nom.nodeValue;
+					document.getElementById("textFieldPrenom").value = prenom.nodeValue;
+					document.getElementById("textFieldDate").value = datenaiss.nodeValue;
+				}else{
+					document.getElementById("textFieldId").value = "Id inexistant";
+					document.getElementById("textFieldLogin").value = null;
+					document.getElementById("textFieldNom").value = null;
+					document.getElementById("textFieldPrenom").value = null;
+					document.getElementById("textFieldDate").value = null;
+				}
+		    }
+		}
+	</script>
+</head>
+<body>
+	<h1>Recherche par ID </h1><br>
+	<p/><label>recherche id : </label><input type="text" id="recherche" onKeyUp="SubmitRequest(recherche.value);"/>
+	<br/>
+	-----------------------------------------------------------
+	<br/>
+	<p/><label>id </label><input type="text" id="textFieldId" disabled="disabled"/>
+	<p/><label>login </label><input type="text" id="textFieldLogin" disabled="disabled"/>
+	<p/><label>nom </label><input type="text" id="textFieldNom" disabled="disabled"/>
+	<p/><label>prenom </label><input type="text" id="textFieldPrenom" disabled="disabled"/>
+	<p/><label>date </label><input type="text" id="textFieldDate" disabled="disabled"/>
+	<p/><a href="index.html">Home</a>
+</body>
+</html>
